@@ -4,6 +4,7 @@ set(NPROJ rutubeload)
 set(SOURCE_EXE ${CMAKE_HOME_DIRECTORY}/src/main.cpp
                 ${CMAKE_HOME_DIRECTORY}/src/headerurl.cpp
                 ${CMAKE_HOME_DIRECTORY}/src/net_tools.cpp
+                ${CMAKE_HOME_DIRECTORY}/src/progress_bar.cpp
 )
 
 include_directories(include)
