@@ -15,10 +15,10 @@ public:
   ProgressOptional();
   ProgressOptional(const std::string);
 
-  const int &get_start_len();
+  const int get_start_len();
 
 private:
-  std::string *line = new std::string("\rPrgoress: [>");
+  std::string *line = new std::string("\rProgress: [>");
   unsigned int start_len = 12;
   unsigned int num_point = 32;
 
