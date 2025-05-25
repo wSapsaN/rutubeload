@@ -44,15 +44,16 @@ void ProgressOptional::add_point()
 {
   string points = ""; // переменная в которой храним точки для конкатенации с переменной line
 
-  for (size_t i = 0; i < this->num_point; i++)
+  size_t add_pointer = 0;
+  for (add_pointer; add_pointer < this->num_point; add_pointer++)
   { points.push_back('.'); } // набиваем переменную символами
-  points += "]";    // завершаем.
+  points[add_pointer-1] = ']'; // завершаем.
 
   for (size_t i = 0; i < points.size(); i++)
   { this->line->push_back(points[i]); }
 }
 
-const int &ProgressOptional::get_start_len()
+const int ProgressOptional::get_start_len()
 { return start_len; }
 
 void progress(int const total_num_size, int const fin_size, ProgressOptional& optional)
@@ -66,12 +67,11 @@ void progress(int const total_num_size, int const fin_size, ProgressOptional& op
     const int start_len = optional.get_start_len();
     for (size_t i = 0; i < (a-b) && optional.cprogress < (optional.num_point-1); i++) // Заменяем символы с разницей между a и b
     {
-      optional.line[optional.cprogress + start_len] = '=';
+      optional.line[0][optional.cprogress + start_len] = '=';
       optional.cprogress++;
-      optional.line[optional.cprogress + start_len] = '>'; // направление процесса
+      optional.line[0][optional.cprogress + start_len] = '>'; // направление процесса
     }
   }
   
-  
-  cout << optional.line << " " << a << "%" << flush; // вывод
+  cout << *optional.line << " " << a << "%" << flush; // вывод
 }

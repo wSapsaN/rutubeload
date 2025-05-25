@@ -117,14 +117,16 @@ void run(
 
   std::vector<std::string> done_link = setupCHUNKlink.total_linkTOchunk(result);
 
+  ProgressOptional poptional;
+
   int size_links = done_link.size();
   std::ofstream out(filename, std::ios::app);
-  for (size_t i = 0; i < (size_links+1); i++)
+  for (size_t i = 0; i < size_links; i++)
   {
     std::string data = requests(done_link[i]);
     if (out.is_open()) out << data;
     // std::cout << "Download " << i+1 << " of " << done_link.size() << std::endl;
-    progress(size_links, i);
+    progress(size_links, (i+1), poptional);
   }
   out.close();
   
