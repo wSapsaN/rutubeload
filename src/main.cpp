@@ -4,6 +4,7 @@
 
 #include "headerurl.hpp"
 #include "net_tools.hpp"
+#include "progress_bar.hpp"
 
 bool check_link(std::string link)
 {
@@ -28,7 +29,6 @@ void help()
   std::cout << "\n\t\tExample call: app <url> <filename>" << std::endl;
   std::cout << "\t\tЕсли наименование файла отсутствует то подставляется 'file.ts'" << std::endl;
   std::cout << std::endl;
-  // std::cout << << std::endl;
 }
 
 std::string resolution(std::string res)
@@ -108,33 +108,29 @@ void run(
   std::string chunksLink = resolution(res); // разделяем ссылки и не нужные строки, в конце выбираем
   // качество и возвращаем одну ссылку.
 
-  // std::cout << chunksLink << std::endl;
-
   std::string chunks = requests(chunksLink); // здесь хранятся все чанки выбранного качества
 
-  // std::cout << chunks << std::endl;
-
   URL setupCHUNKlink(chunks); // сортируем не нужное
-
-  // setupCHUNKlink.printer(); // вывод вектора который получился.
 
   int last_positionTrigger = setupCHUNKlink.count_charset(chunksLink, '/'); // считаем по слешу
   std::string result = setupCHUNKlink.pop_afterCHarBYnum('/', last_positionTrigger, chunksLink); // обрезаем не нужное
 
-  // std::cout << result << std::endl;string
-
   std::vector<std::string> done_link = setupCHUNKlink.total_linkTOchunk(result);
 
+  ProgressOptional poptional;
+
+  int size_links = done_link.size();
   std::ofstream out(filename, std::ios::app);
-  for (size_t i = 0; i < done_link.size(); i++)
+  for (size_t i = 0; i < size_links; i++)
   {
     std::string data = requests(done_link[i]);
     if (out.is_open()) out << data;
-    std::cout << "Download " << i+1 << " of " << done_link.size() << std::endl;
+    // std::cout << "Download " << i+1 << " of " << done_link.size() << std::endl;
+    progress(size_links, (i+1), poptional);
   }
   out.close();
   
-  std::cout << "Data saved to " << filename << std::endl;
+  std::cout << "\nData saved to " << filename << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -147,11 +143,11 @@ int main(int argc, char* argv[])
 
   if (argc > 3)
   {
-    std::cout << "Утилита принемает только два параметра. " << std::endl;
+    std::cout << "Утилита принемает только два параметра." << std::endl;
     help();
     exit(-1);
   }
-  // std::strcmp();
+
   std::string link = argv[1];
   std::string filename = "file.ts";
   if (argv[2]) {
@@ -168,4 +164,3 @@ int main(int argc, char* argv[])
 
   return 0;
 }
-

@@ -58,8 +58,11 @@ std::string requests(std::string url)
 
     curl_easy_cleanup(curl);
     if(res != CURLE_OK)
+    {     
       fprintf(stderr, "curl_easy_perform() failed: %s\n%s\n",
               curl_easy_strerror(res), url.c_str());
+      exit(-1);
+    }
 
   }
 
