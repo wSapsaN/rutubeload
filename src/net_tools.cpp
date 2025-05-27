@@ -53,13 +53,14 @@ std::string requests(std::string url)
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, 1500);
 
     res = curl_easy_perform(curl);
 
     curl_easy_cleanup(curl);
     if(res != CURLE_OK)
     {     
-      fprintf(stderr, "curl_easy_perform() failed: %s\n%s\n",
+      fprintf(stderr, "%s\n%s\n",
               curl_easy_strerror(res), url.c_str());
       exit(-1);
     }
