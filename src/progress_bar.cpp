@@ -75,3 +75,4 @@ void progress(int const total_num_size, int const fin_size, ProgressOptional& op
   
   cout << *optional.line << " " << a << "%" << flush; // вывод
 }
+
