@@ -10,33 +10,45 @@ std::string parser_m3u(std::string json)
   // search "m3u8"
   // return links to chunks
 
-  bool flag = 0, link_flag = 0;
+  bool flag = 1, link_flag = 0;
   std::string link;
   std::string tmp;
   for (size_t i = 0; i < json.size(); i++)
   {
+
+    if (json[i] == '"' && json[i+1] == 'm' && json[i+2] == '3')
+    {
+      if (flag)
+      {
+        for (size_t j = 0; j < 5; j++) {
+          tmp+=json[i+j];
+        }
+      }
+      
+    }
+
     if (tmp == "\"m3u8")
     {
-      if (flag) i+=4;
-
-      if (json[i] == 'h' || link_flag)
-      {
-        link_flag = 1;
-        if (json[i] == '"') break;
-        link += json[i];
-      }
-
+      std::cout << "Success playlist" << std::endl;
       flag = 0;
+      
+      int count = 8;
+      while (1)
+      {
+        if (json[i+count] == '"') break;
+        if (json[i+count] == '\\')
+        {
+          count += 6;
+          link += "&";
+        }
+        
+        link += json[i+count++];
+      }
+      
+      return link;
     }
-
-    if ((json[i] == '"' && json[i+1] == 'm' && json[i+2] == '3') || flag)
-    {
-      tmp += json[i];
-      flag = 1;
-    }
-    
   }
-  
+
   return link;
 }
 
@@ -53,15 +65,19 @@ std::string requests(std::string url)
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-    curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, 1500);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, 5000);
 
     res = curl_easy_perform(curl);
 
     curl_easy_cleanup(curl);
+
     if(res != CURLE_OK)
     {     
-      fprintf(stderr, "%s\n%s\n",
+      fprintf(stderr, "\n%s\n%s\n",
               curl_easy_strerror(res), url.c_str());
+      
+      // if (curl_easy_strerror(res))
+
       exit(-1);
     }
 

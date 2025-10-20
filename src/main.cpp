@@ -119,11 +119,13 @@ void run(
 
   ProgressOptional poptional;
 
+  int count_timeout = 0;
   int size_links = done_link.size();
   std::ofstream out(filename, std::ios::app);
   for (size_t i = 0; i < size_links; i++)
   {
-    std::string data = requests(done_link[i]);
+    std::string data = requests(done_link[i+160]);
+    
     if (out.is_open()) out << data;
     // std::cout << "Download " << i+1 << " of " << done_link.size() << std::endl;
     progress(size_links, (i+1), poptional);
