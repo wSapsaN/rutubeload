@@ -84,10 +84,21 @@ std::string resolution(std::string res)
   }
   std::cout << std::endl;
 
-  std::cin >> select;
+  while (1)
+  {
+    std::cout << "Select resolution: ";
+    std::cin >> select;
 
-  return link[select]; // возвращаем ссылку которая ведет на чанки
-
+    if (select >= link.size())
+    {
+      std::cout << "\rThe selected resolution does not exist." << std::endl;
+      std::cout << "Try again or exit via Ctrl+C." << std::endl;
+      
+      continue;
+    }
+    
+    return link[select]; // возвращаем ссылку которая ведет на чанки
+  }
 }
 
 void run(
@@ -124,12 +135,13 @@ void run(
   std::ofstream out(filename, std::ios::app);
   for (size_t i = 0; i < size_links; i++)
   {
-    std::string data = requests(done_link[i+160]);
+    std::string data = requests(done_link[i]);
     
     if (out.is_open()) out << data;
     // std::cout << "Download " << i+1 << " of " << done_link.size() << std::endl;
-    progress(size_links, (i+1), poptional);
+    // progress(size_links, (i+1), poptional);
   }
+
   out.close();
   
   std::cout << "\nData saved to " << filename << std::endl;

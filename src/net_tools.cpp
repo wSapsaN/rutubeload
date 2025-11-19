@@ -76,8 +76,6 @@ std::string requests(std::string url)
       fprintf(stderr, "\n%s\n%s\n",
               curl_easy_strerror(res), url.c_str());
       
-      // if (curl_easy_strerror(res))
-
       exit(-1);
     }
 
@@ -86,5 +84,4 @@ std::string requests(std::string url)
   curl_global_cleanup();
 
   return readBuffer;
-  // std::cout << parser_m3u(readBuffer) << std::endl;
 }
