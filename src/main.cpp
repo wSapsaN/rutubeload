@@ -138,8 +138,7 @@ void run(
     std::string data = requests(done_link[i]);
     
     if (out.is_open()) out << data;
-    // std::cout << "Download " << i+1 << " of " << done_link.size() << std::endl;
-    // progress(size_links, (i+1), poptional);
+    progress(size_links, (i+1), poptional);
   }
 
   out.close();
