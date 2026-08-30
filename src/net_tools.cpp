@@ -65,7 +65,7 @@ std::string requests(std::string url)
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-    curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, 5000);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, 10000);
 
     res = curl_easy_perform(curl);
 
@@ -76,7 +76,7 @@ std::string requests(std::string url)
       fprintf(stderr, "\n%s\n%s\n",
               curl_easy_strerror(res), url.c_str());
       
-      exit(-1);
+      return "error"; // exit(-1);
     }
 
   }

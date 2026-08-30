@@ -77,28 +77,30 @@ std::string resolution(std::string res)
     }
   }
   
-  std::cout << "Select line: " << std::endl; // выбираем одно из доступных качеств
-  for (size_t i = 0; i < quality.size(); i++)
-  {
-    std::cout << "[" << i << "]" << " " << quality[i] << " " << link[i] << std::endl;
-  }
-  std::cout << std::endl;
+  // std::cout << "Select line: " << std::endl; // выбираем одно из доступных качеств
+  //for (size_t i = 0; i < quality.size(); i++)
+  //{
+  //  std::cout << "[" << i << "]" << " " << quality[i] << " " << link[i] << std::endl;
+  //}
+  //std::cout << std::endl;
 
-  while (1)
-  {
-    std::cout << "Select resolution: ";
-    std::cin >> select;
+  //while (1)
+  //{
+  //  std::cout << "Select resolution: ";
+  //  std::cin >> select;
 
-    if (select >= link.size())
-    {
-      std::cout << "\rThe selected resolution does not exist." << std::endl;
-      std::cout << "Try again or exit via Ctrl+C." << std::endl;
+  //  if (select >= link.size())
+  //  {
+  //    std::cout << "\rThe selected resolution does not exist." << std::endl;
+  //    std::cout << "Try again or exit via Ctrl+C." << std::endl;
       
-      continue;
-    }
+  //    continue;
+  //  }
     
-    return link[select]; // возвращаем ссылку которая ведет на чанки
-  }
+  //  return link[select]; // возвращаем ссылку которая ведет на чанки
+  //}
+  
+  return link[link.size()];
 }
 
 void run(
