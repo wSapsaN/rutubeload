@@ -11,7 +11,7 @@ include_directories(include)
 
 project(${NPROJ})
 
-add_compile_options("-g")
+add_compile_options(-g -Wall)
 
 add_executable(${NPROJ} ${SOURCE_EXE})
 

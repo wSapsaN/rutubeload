@@ -10,7 +10,7 @@ std::string parser_m3u(std::string json)
   // search "m3u8"
   // return links to chunks
 
-  bool flag = 1, link_flag = 0;
+  bool flag = 1; // , link_flag = 0;
   std::string link;
   std::string tmp;
   for (size_t i = 0; i < json.size(); i++)

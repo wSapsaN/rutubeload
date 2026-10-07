@@ -21,7 +21,7 @@ ProgressOptional::ProgressOptional(const std::string new_line)
   line = new string;
 
   size_t i = 0;
-  for (i; i < (new_line.size()+33); i++)
+  for (; i < (new_line.size()+33); i++)
   {
     this->line += new_line[i];
   }
@@ -45,7 +45,7 @@ void ProgressOptional::add_point()
   string points = ""; // переменная в которой храним точки для конкатенации с переменной line
 
   size_t add_pointer = 0;
-  for (add_pointer; add_pointer < this->num_point; add_pointer++)
+  for (; add_pointer < this->num_point; add_pointer++)
   { points.push_back('.'); } // набиваем переменную символами
   points[add_pointer-1] = ']'; // завершаем.
 
@@ -65,7 +65,7 @@ void progress(int const total_num_size, int const fin_size, ProgressOptional& op
   if (a > b)
   {
     const int start_len = optional.get_start_len();
-    for (size_t i = 0; i < (a-b) && optional.cprogress < (optional.num_point-1); i++) // Заменяем символы с разницей между a и b
+    for (unsigned int i = 0; i < (a-b) && optional.cprogress < (optional.num_point-1); i++) // Заменяем символы с разницей между a и b
     {
       optional.line[0][optional.cprogress + start_len] = '=';
       optional.cprogress++;
